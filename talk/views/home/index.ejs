@@ -1,0 +1,35 @@
+<% include ../header%>
+
+
+
+    <div class="jumbotron transparency-plus">
+    	<h1><%= subTitle %></h1>
+    	<p>Welcome to <%= title %></p>
+    </div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>	
+
+		var socket = io.connect();
+		socket.on('send-client', function (msg) {
+				alert(msg);
+
+		});
+
+
+		$(document).ready(function(){
+
+				$("#btn-login").click(function(){
+					socket.emit('send-server', 'Teste');
+				});
+
+		});
+
+	</script>
+
+
+
+
+
+
+<% include ../footer%>

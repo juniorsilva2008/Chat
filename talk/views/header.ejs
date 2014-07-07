@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- Latest compiled and minified CSS -->
+	   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	  <!-- Optional theme -->
+	  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+	  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body class="bg-fundo bg-fundo-img-1">
+
+  	 <div class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand active" href="/">Panic Talk </span></a>
+          </div>
+          <div class="navbar-collapse collapse">
+            
+            <ul class="nav navbar-nav">
+              <li><a href="/contacts">My Contacts <span class="badge">42</span></a></li>
+              <li><a href="/contacts">Online <span class="badge">8</span></a></li>
+              
+
+              <%if (session){%>
+                <li><a href="/profile">My Profile</a></li>
+                <li><a href="/mychat/logout">Logout</a></li>
+              <%}%>
+
+              <li><a href="/about">About us</a></li>
+              
+            </ul>
+          
+         
+             <%if (!session){%>
+             <!--/Login -->
+             <div  class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right" role="form" method="post" name="frm-login" id="frm-login">
+                  <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control" name="login[email]" id="email">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" name="login[password]" id="password">
+                  </div>
+                  <button type="submit" class="btn btn-success" name="btn-login" id="btn-login" >Sign in</button>
+                  <button type="button" class="btn btn-success" name="btn-join" id="btn-join" >Join us</button>
+                </form>
+              </div><!--/Fim Login -->
+              <%}%>
+
+		      </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+    <div class="container theme-showcase" role="main">

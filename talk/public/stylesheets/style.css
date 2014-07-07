@@ -1,0 +1,26 @@
+.bg-fundo{
+	min-height: 400px;
+}
+
+.bg-fundo-img-1{
+	background-image: url(/images/bg-fundo-1.jpg);
+}
+
+.bg-fundo-img-2{
+	background-image: url(/images/bg-fundo-2.jpg);
+}
+
+.transparency{
+
+	opacity:0.65;
+	-moz-opacity: 0.65;
+	filter: alpha(opacity=65);
+}
+
+.transparency-plus{
+
+	opacity:0.85;
+	-moz-opacity: 0.85;
+	filter: alpha(opacity=85);
+}
+

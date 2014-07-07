@@ -1,0 +1,33 @@
+<% include ../header%>
+
+ 	<div class="jumbotron transparency-plus">
+		<h2><%=title%></h2>
+		<a href="/contacts" class="btn btn-primary btn-lg active" role="button">Voltar</a>
+    </div>
+
+    <div class="jumbotron transparency-plus">
+		
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			<form action="/contacts/new" method="post" role="form" name="form-contact" id="form-contact">
+				<tr>
+					<td><input name="contact[name]" placeholder="Nome" class="form-control" /></td>
+					<td><input name="contact[email]" placeholder="Email" class="form-control" /></td>
+					<td><input type="submit" value="Add" class="btn btn-primary"></td>
+				</tr>
+				</form>
+
+
+			</tbody>
+		</table>
+
+    </div>
+
+<% include ../footer%>
