@@ -1,5 +1,5 @@
 {
-  "name": "Panic-talk",
+  "name": "PanicTalk",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "express-session": "1.6.3",
     "mongoose": "3.8.12",
     "socket.io": "1.0.6",
+    "socket.io-handshake": "0.0.8",
     "static-favicon": "1.0.0"
   }
 }

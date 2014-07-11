@@ -33,8 +33,18 @@
           <div class="navbar-collapse collapse">
             
             <ul class="nav navbar-nav">
-              <li><a href="/contacts">My Contacts <span class="badge">42</span></a></li>
-              <li><a href="/contacts">Online <span class="badge">8</span></a></li>
+             
+              <li><a href="/contacts">My Contacts 
+              <%if (session){%>
+                <span class="badge"><%= session.contacts.length%></span>
+              <%}%>
+              </a></li>
+
+              <li><a href="/contacts">Online 
+                <%if (session){%>
+                  <span class="badge" id="count-online">0</span>
+                <%}%>
+              </a></li>
               
 
               <%if (session){%>

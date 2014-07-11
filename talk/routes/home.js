@@ -1,19 +1,19 @@
-
 var express    = require('express');
 var router = express.Router();
-
+var authentication = require('../middleware/authentication');
 
 var mongoose     = require('mongoose');
 mongoose.connect('mongodb://localhost/panictalk');
 
-
 var User = require('../models/user');
+
 
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
 	// do logging
 	//console.log(User);
+
 	next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -23,15 +23,9 @@ router.get('/', function(req, res) {
 });
 
 
-
 //Login sucessfull
-router.get('/mychat', function(req, res) {
-
-	if(req.session.login){
-  		res.render("home/index", { title: 'My PT 1.0', subTitle: 'Olá ' + req.session.login.name,  session: req.session.login});
-	}else{
-		res.redirect('/');
-	}
+router.get('/mychat',authentication, function(req, res) {
+  	res.render("home/index", { title: 'My PT 1.0', subTitle: 'Olá ' + req.session.login.name,  session: req.session.login});
 });
 
 
@@ -41,18 +35,14 @@ router.get('/mychat/logout', function(req, res) {
 	res.redirect('/');
 });
 
-//Posta da página inicial para fazer o login
+//Post da página inicial para fazer o login
 router.route('/')
 .post(function(req, res) {
 	
 	var user = req.body.login;
 	var query = {email: user.email, password: user.password};
+	User.findOne(query, function(err, user){
 
-	console.log(query);
-
-	User.findOne(query)
-		.select('name email')
-		.exec(function(err, user){
 			if(err){
 				console.log(err);
 			}
@@ -66,13 +56,14 @@ router.route('/')
 				console.log('Nao localizado!');
 				res.render("home/index", { title: 'Panic Talk 1.0', subTitle: 'Sorry, Login Failed!', session: req.session.login });
 			}
-		});
+		
+	});
 
 });
 
 
 
-//Login sucessfull
+//Sobre
 router.get('/about', function(req, res) {
   	res.render("home/about", { title: 'About us', session: req.session.login});
 });

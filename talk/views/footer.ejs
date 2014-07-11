@@ -16,3 +16,30 @@
 
   </body>
 </html>
+
+
+<script src="/socket.io/socket.io.js"></script>
+	<script>	
+
+		var socket = io.connect();
+
+		socket.on('notify-online', function(msg){
+			$("#count-online").html(msg);
+
+		});
+
+
+		socket.on('send-client', function (msg) {
+				alert(msg);
+		});
+
+
+		$(document).ready(function(){
+
+			//$("#btn-login").click(function(){
+				//	socket.emit('send-server', 'Teste');
+			//	});
+
+		});
+
+	</script>
