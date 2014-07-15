@@ -7,8 +7,11 @@ var logger        = require('morgan');
 var cookieParser  = require('cookie-parser');
 var bodyParser    = require('body-parser');
 var error         = require('./middleware/error');
+
+//Rotas
 var routes        = require('./routes/home');
 var contacts      = require('./routes/contacts');
+var chat          = require('./routes/chat');
 
 
 var app = express();
@@ -64,6 +67,7 @@ io.use(function(socket, next) {
 //Rotas
 app.use('/', routes);
 app.use('/contacts', contacts);
+app.use('/chat', chat);
 app.use(error.notFound);
 //app.use(error.serverError);
 

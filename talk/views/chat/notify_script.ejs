@@ -1,0 +1,38 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>	
+
+	var socket = io.connect();
+
+		socket.on('send-client', function (data) {
+			var msgText = "<p><kbd>" + data.user.name + "</kbd><br/>" + data.msg + "</p>";
+			$("#chatMessages").html($("#chatMessages").html() + msgText );
+
+			var objDiv = document.getElementById("chatMessages");
+			objDiv.scrollTop = objDiv.scrollHeight;
+
+		});
+
+
+		//Envia mensagem ao clicar no botão
+		$('#btnSendMesssage').click(function(){
+			sendMessage();
+		});
+
+		//Envia mensagem quando Enter
+		$( "#messageText" ).keypress(function( event ) {
+		  if ( event.which == 13 ) {
+		     sendMessage();
+		  }
+		});
+
+		//função para enviar mensagem
+		var sendMessage = function(){
+			var  msg = $("#messageText").val();
+			socket.emit('send-server', msg);
+			$('#messageText').val('');
+			
+		};
+
+
+
+</script>

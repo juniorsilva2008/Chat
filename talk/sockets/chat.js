@@ -9,24 +9,40 @@ module.exports = function(io) {
 
 		//conecta o usuário
 		var session = client.handshake.session;
-		var user = session.login;
-
-		//client.set('email', user.email);
-
 		console.log('Socket Conetado')
+		var qtdOnline=0;
 
-		client.on('send-server', function (msg) {
-			client.broadcast.emit('new-message', session);
-			client.emit('send-client', session);
-			//console.log('Send-server: ' + msg);
+
+		//Lista os clientes conectados e manda para o navegador
+		findClientsOnLine().forEach(function(user){
+			if(user.login){
+				//Se não for eu mesmo
+				if(user.login.email != session.login.email)
+					qtdOnline++;
+
+				client.emit('notify-online',  {email: user.login.email, qtdOnline: qtdOnline} );
+				client.broadcast.emit('notify-online', {email: user.login.email, qtdOnline: qtdOnline} );
+			};
 		});
 
 
-		var onlines = sockets;
-		var totalOnline = findTotalClientsOnline();
+		client.on('send-server', function (msg) {
 
-		client.emit('notify-online', totalOnline);
-		client.broadcast.emit('notify-online', totalOnline);
+			//client.broadcast.emit('new-message', msg);
+			client.emit('send-client', {user: session.login, msg: msg});
+			client.broadcast.emit('send-client', {user: session.login, msg: msg});
+			//client.broadcast.emit('new-message', msg);
+			console.log('Send-server: ' + session.login.name);
+		});
+
+
+		client.on('disconnect', function(){
+			client.emit('notify-offline', {email: session.login.email, qtdOnline: qtdOnline} );
+			client.broadcast.emit('notify-offline', {email: session.login.email, qtdOnline: qtdOnline} );
+			console.log('Socket Desconetado')
+			//client.leave();
+		});
+
 
 
 	});
@@ -40,9 +56,23 @@ module.exports = function(io) {
 		return res;
 	}
 
-/*	function findClientsSocketByRoomId(roomId) {
+//Clientes online
+	function findClientsOnLine() {
 	var res = []
-	, room = io.sockets.adapter.rooms[roomId];
+	, sids = io.sockets.adapter.sids;
+	if (sids) {
+	    for (var id in sids) {
+	    res.push(io.sockets.adapter.nsp.connected[id].handshake.session);
+	    }
+	}
+	return res;
+	}
+
+
+//Localiza online por sala
+	/*function findClientsSocketByRoomIds(roomId) {
+	var res = []
+	, room = io.sockets.adapter.rooms;
 	if (room) {
 	    for (var id in room) {
 	    res.push(io.sockets.adapter.nsp.connected[id]);

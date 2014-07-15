@@ -11,7 +11,7 @@
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Email</th>
+					<!--<th>Email</th>-->
 					<th>Status</th>
 					<th></th>
 					<th></th>
@@ -23,11 +23,11 @@
 			<% mycontacts.forEach( function(contact) { %>
 				<tr>
 					<td><%= contact.name%></td>
-					<td><%= contact.email%></td>
-					<td>Status</td>
+					<!--<td><%= contact.email%></td>-->
+					<td><span class="btn btn-sm btn-block btn-default" id="notify_<%= contact.email %>" name="notify_<%= contact.email %>">Off</span></td>
 					<td> <a href="/contacts/edit/<%= contact._id %>"> Edit </a></td>
-					<td>Remove</td>
-					<td>Chat</td>
+					<td> <a href="/contacts/delete/<%= contact._id %>">Del </a></td>
+					<td> <a href="/chat/<%= contact._id %>"> Chat </a></td>
 				</tr>
 			<%})%>
 
@@ -37,5 +37,5 @@
     </div>
 
     
-
+<% include notify_script %>
 <% include ../footer%>

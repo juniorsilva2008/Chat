@@ -11,7 +11,6 @@
 }
 
 .transparency{
-
 	opacity:0.65;
 	-moz-opacity: 0.65;
 	filter: alpha(opacity=65);
@@ -24,3 +23,16 @@
 	filter: alpha(opacity=85);
 }
 
+.chat-messages{
+	height: 260px;
+	overflow: auto;
+}
+
+.chat-messages p{
+	border-bottom: 1px solid #ccc;
+}
+
+footer li{
+	display: inline;
+	margin-right: 10px;
+}

@@ -1,0 +1,29 @@
+<% include ../header%>
+
+ 	<div class="jumbotron transparency-plus">
+		<div> <a href="/contacts" class="btn btn-primary active" role="button">Back</a> Chatting to <%=title%></div>
+		
+    </div>
+
+   
+
+    <pre  class="pre-scrollable transparency-plus" id="chatMessages"></pre>
+
+
+	<div class="transparency-plus">
+		<div class="row">
+  			<div class="col-xs-8">
+    			<input type="text" id="messageText" class="form-control input-lg" placeholder="Message">
+    		</div>
+    		<div class="col-xs-1">
+				<input type="button" id="btnSendMesssage" class="btn btn-primary btn-lg active" value="Send">
+			</div>
+			</div>
+		</div>
+
+    </div>
+
+
+    
+<% include notify_script %>
+<% include ../footer%>

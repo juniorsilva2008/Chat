@@ -9,8 +9,12 @@
 	  <!-- Optional theme -->
 	  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
+
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 	  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +56,16 @@
                 <li><a href="/mychat/logout">Logout</a></li>
               <%}%>
 
-              <li><a href="/about">About us</a></li>
+              
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">PT 2014 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="/privacy">Privacy</a></li>  
+                    <li><a href="/terms">Terms of use</a></li> 
+                    <li><a href="/about">About us</a></li>
+                </ul>
+               </li>
               
             </ul>
           
@@ -62,13 +75,17 @@
              <div  class="navbar-collapse collapse">
                 <form class="navbar-form navbar-right" role="form" method="post" name="frm-login" id="frm-login">
                   <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control" name="login[email]" id="email">
+                    <div class="input-group">
+                      <input type="hidden" class="form-control" name="login[name]" id="name">
+                      <div class="input-group-addon">@</div>
+                      <input type="text" placeholder="Email" class="form-control" name="login[email]" id="email">
+                    </div>
                   </div>
                   <div class="form-group">
                     <input type="password" placeholder="Password" class="form-control" name="login[password]" id="password">
                   </div>
-                  <button type="submit" class="btn btn-success" name="btn-login" id="btn-login" >Sign in</button>
-                  <button type="button" class="btn btn-success" name="btn-join" id="btn-join" >Join us</button>
+                  <button type="submit" class="btn btn-success" name="login[btn_login]" id="btn_login" value="1" >Sign in</button>
+                  <button type="submit" class="btn btn-success" name="login[btn_join]" id="btn_join"  value="1">Join us</button>
                 </form>
               </div><!--/Fim Login -->
               <%}%>

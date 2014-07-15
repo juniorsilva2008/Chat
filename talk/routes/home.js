@@ -38,14 +38,17 @@ router.get('/mychat/logout', function(req, res) {
 //Post da página inicial para fazer o login
 router.route('/')
 .post(function(req, res) {
-	
+
 	var user = req.body.login;
 	var query = {email: user.email, password: user.password};
-	User.findOne(query, function(err, user){
-
-			if(err){
+	
+	//Se for clicado no botão de login, efetua login
+	//Se nao, cadastra novo usuário
+	if(user.btn_login==1)
+	{
+		User.findOne(query, function(err, user){
+			if(err)
 				console.log(err);
-			}
 
 			if(user != null){
 				req.session.login = user;
@@ -56,8 +59,20 @@ router.route('/')
 				console.log('Nao localizado!');
 				res.render("home/index", { title: 'Panic Talk 1.0', subTitle: 'Sorry, Login Failed!', session: req.session.login });
 			}
-		
-	});
+		});
+
+	}else{
+		user.name = user.email.substring(0, user.email.indexOf("@"));
+		User.create(user, function(err, user){
+			if(err)
+				res.redirect("/");
+
+			req.session.login = user;
+			res.redirect('/mychat');
+		})
+	}
+
+
 
 });
 

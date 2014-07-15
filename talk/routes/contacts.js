@@ -39,9 +39,10 @@ router.post('/new', function(req, res) {
 		var contacts = user.contacts;
 		contacts.push(contact);
 		user.save(function(err){
-			if(err){
+			if(err)
 				console.log(err);
-			}
+
+			req.session.login.contacts.push(contact);
 			res.redirect('/contacts');
 		});
 
@@ -57,7 +58,7 @@ router.get('/edit/:id', authentication, function(req, res){
 });
 
 //Editar usuário
-router.post('/edit/:id', function(req, res){
+router.post('/edit/:id', authentication, function(req, res){
 	User.findById(req.session.login._id, function(err, user){
 		var contact  = user.contacts.id(req.params.id);
 		contact.name = req.body.contact.name;
@@ -72,6 +73,19 @@ router.post('/edit/:id', function(req, res){
 	});
 });
 
+
+//Apagar um usuário
+router.get('/delete/:id', authentication, function(req, res){
+	User.findById(req.session.login._id, function(err, user){
+		user.contacts.id(req.params.id).remove();
+		user.save(function(){
+			req.session.login.contacts = user.contacts;
+			res.redirect('/contacts');
+		})
+	});
+
+	
+});
 
 module.exports = router;
 

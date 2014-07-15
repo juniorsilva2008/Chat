@@ -9,7 +9,7 @@ var contacts = Schema({
 });
 
 var UserSchema = Schema({
-	name: {type: String, required: true}
+	name: {type: String}
 	, email: {type: String, required: true, index: {unique: true}}
 	, password: {type: String, required: true}
 	, contacts: [contacts]

@@ -2,7 +2,7 @@
 
  	<div class="jumbotron transparency-plus">
 		<h2><%=title%></h2>
-		<a href="/contacts" class="btn btn-primary btn-lg active" role="button">Voltar</a>
+		<a href="/contacts" class="btn btn-primary btn-lg active" role="button">Back</a>
     </div>
 
     <div class="jumbotron transparency-plus">
@@ -13,14 +13,17 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th></th>
+	
 				</tr>
 			</thead>
 			<tbody>
-			<form action="/contacts/edit/<%= contact._id %>" method="post" role="form" name="form-contact" id="form-contact">
+			<form action="/contacts/edit/<%= contact._id %>" method="post" role="form" name="form_contact" id="form_contact">
 				<tr>
+				    
 					<td><input name="contact[name]" placeholder="Nome" class="form-control" value="<%= contact.name %>" /></td>
 					<td><input name="contact[email]" placeholder="Email" class="form-control" value="<%= contact.email %>" /></td>
 					<td><input type="submit" value="Edit" class="btn btn-primary"></td>
+	
 				</tr>
 				</form>
 
