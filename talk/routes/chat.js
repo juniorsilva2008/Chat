@@ -15,15 +15,12 @@ router.use(function(req, res, next) {
 });
 
 //initial
-router.get('/:id', authentication, function(req, res) {
-	User.findById(req.session.login._id, function(err, mycontacts) {
-		if(err){
+router.get('/:email/:room', authentication, function(req, res) {
+	User.findOne({email:req.params.email}, function(err, contact) {
+		if(err)
 			console.log(err);
-		}
-		else{
-			var contact = mycontacts.contacts.id(req.params.id)
-			res.render('chat/index', {title: contact.email, mycontacts: mycontacts.contacts, session: req.session.login});
-		}
+		else
+			res.render('chat/index', {title: contact.name , chatto: contact.email, session: req.session.login, room: req.params.room});
 	});
 });
 

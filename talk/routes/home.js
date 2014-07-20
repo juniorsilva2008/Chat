@@ -3,7 +3,7 @@ var router = express.Router();
 var authentication = require('../middleware/authentication');
 
 var mongoose     = require('mongoose');
-mongoose.connect('mongodb://localhost/panictalk');
+mongoose.connect('mongodb://187.2.55.247/panictalk');
 
 var User = require('../models/user');
 

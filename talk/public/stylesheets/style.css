@@ -23,13 +23,8 @@
 	filter: alpha(opacity=85);
 }
 
-.chat-messages{
-	height: 260px;
-	overflow: auto;
-}
-
-.chat-messages p{
-	border-bottom: 1px solid #ccc;
+.cursor-pointer{
+	cursor: pointer;
 }
 
 footer li{

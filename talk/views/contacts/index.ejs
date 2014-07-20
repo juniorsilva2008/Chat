@@ -15,7 +15,6 @@
 					<th>Status</th>
 					<th></th>
 					<th></th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,10 +23,9 @@
 				<tr>
 					<td><%= contact.name%></td>
 					<!--<td><%= contact.email%></td>-->
-					<td><span class="btn btn-sm btn-block btn-default" id="notify_<%= contact.email %>" name="notify_<%= contact.email %>">Off</span></td>
-					<td> <a href="/contacts/edit/<%= contact._id %>"> Edit </a></td>
-					<td> <a href="/contacts/delete/<%= contact._id %>">Del </a></td>
-					<td> <a href="/chat/<%= contact._id %>"> Chat </a></td>
+					<td> <a class="btn btn-default" data-toggle="tooltip" data-placement="bottom" id="notify_<%= contact.email %>" title="Click to Chat" >Off</a></td>
+					<td> <a class="btn btn-default" href="/contacts/edit/<%= contact._id %>"> Edit </a></td>
+					<td> <a class="btn btn-danger" href="/contacts/delete/<%= contact._id %>" id="<%= contact._id %>" onclick="return confirmAction(this.id)">Del </a></td>
 				</tr>
 			<%})%>
 

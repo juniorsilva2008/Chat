@@ -1,8 +1,18 @@
 <% include ../header%>
 
+	<div id="dialog"></div>
  	<div class="jumbotron transparency-plus">
-		<div> <a href="/contacts" class="btn btn-primary active" role="button">Back</a> Chatting to <%=title%></div>
-		
+
+		<div class="col-xs-4 placeholder">
+			<div> <a href="/contacts" class="btn btn-primary active" role="button">Back</a> Chatting to <%=chatto%></div>
+		</div>
+
+		<div class="col-xs-5 placeholder list-inline" id="list_chatting">
+			
+		</div>
+
+		<br/>
+
     </div>
 
    
@@ -13,13 +23,16 @@
 	<div class="transparency-plus">
 		<div class="row">
   			<div class="col-xs-8">
+  				<input type="hidden" id="chatto" value="<%=chatto%>">
     			<input type="text" id="messageText" class="form-control input-lg" placeholder="Message">
     		</div>
-    		<div class="col-xs-1">
+
+	    	<div class="col-xs-1">
 				<input type="button" id="btnSendMesssage" class="btn btn-primary btn-lg active" value="Send">
 			</div>
-			</div>
 		</div>
+	
+	</div>
 
     </div>
 

@@ -3,43 +3,40 @@
 
 	var socket = io.connect();
 
-	//$( document ).ready(function() {
-
 
 		var notify = function(data) {
 			var id = 'notify_' + data.email;
 			var notify = document.getElementById(id);
-			notify.textContent = data.msg;
-			notify.className += data.class;
+			if(notify!=null){
+				notify.textContent = data.msg 
+				notify.className += data.class;
+				notify.title = data.msgServer;
+				notify.href= "/chat/" + data.email + "/" + data.room;
+			}
 		};
 		
 		socket.on('notify-online', function(data){
 			//alert(data.email);
 			$("#count-online").html(data.qtdOnline);
-			notify({email: data.email, msg: 'On', class: ' btn-success'});
+			notify({email: data.email, room:null, msg: 'On', class: ' btn-success'});
 
 		});
 
 		socket.on('notify-offline', function(data){
 			$("#count-online").html(data.qtdOnline);
-			notify({email: data.email, msg: 'Off', class: ' btn-default'});
+			notify({email: data.email, room:null, msg: 'Off', class: ' btn-default'});
 		});
 
 
-		
+		socket.on('notify-offline', function(data){
+			notify({email: data.email, room:null, msg: 'Off', class: ' btn-default'});
+		});
 
-		socket.on('send-client', function (msg) {
-				alert(msg);
+		socket.on('new-message', function(data){
+			//alert('dasd');
+			notify({email: data.user.email, room:data.room, msg: 'Chatting', msgServer:data.msg, class: ' btn-success'});
 		});
 
 
-		$(document).ready(function(){
 
-			//$("#btn-login").click(function(){
-				//	socket.emit('send-server', 'Teste');
-			//	});
-
-		});
-
-	//})
 </script>

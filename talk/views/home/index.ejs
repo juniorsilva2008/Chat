@@ -1,9 +1,18 @@
 <% include ../header%>
 
     <div class="jumbotron transparency-plus">
-    	<h1><%= subTitle %></h1>
-    	<p>Welcome to <%= title %></p>
+    	
+    	<%if (session){%>
+    	<div class="col-xs-2 placeholder">
+    		<img src="http://lorempixel.com/130/140/people" class="img-thumbnail" />
+    	</div>
+    	<%}%>
+
+    		<h1><%= subTitle %> </h1>
+    		<p>Welcome to <%= title %></p>
+
     </div>
+
 
 
 <% include ../footer%>

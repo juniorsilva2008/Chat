@@ -3,36 +3,78 @@
 
 	var socket = io.connect();
 
-		socket.on('send-client', function (data) {
-			var msgText = "<p><kbd>" + data.user.name + "</kbd><br/>" + data.msg + "</p>";
-			$("#chatMessages").html($("#chatMessages").html() + msgText );
+	//Pega o ID da room que vier na URL
+	var room = window.location.href.split('/')[5];
+	socket.emit('join', {room: room});
 
-			var objDiv = document.getElementById("chatMessages");
-			objDiv.scrollTop = objDiv.scrollHeight;
+	socket.on('send-client', function (data) {
+		
+		var userChatting = data.user.name;
+		if(userChatting=='<%=session.name%>')
+			userChatting='Me';
 
-		});
+		var msgText = "<p><kbd>" + userChatting + "</kbd> " + data.date + "<br/>";
+		msgText +=  "<strong>" + data.msg + "</strong>";
+		msgText += "</p>";
+
+		$("#chatMessages").html( $("#chatMessages").html() + msgText  );
+
+		var objDiv = document.getElementById("chatMessages");
+		objDiv.scrollTop = objDiv.scrollHeight;
+
+	});
 
 
-		//Envia mensagem ao clicar no botão
-		$('#btnSendMesssage').click(function(){
-			sendMessage();
-		});
 
-		//Envia mensagem quando Enter
-		$( "#messageText" ).keypress(function( event ) {
-		  if ( event.which == 13 ) {
-		     sendMessage();
-		  }
-		});
+	//Envia mensagem ao clicar no botão
+	$('#btnSendMesssage').click(function(){
+		sendMessage();
+	});
 
-		//função para enviar mensagem
-		var sendMessage = function(){
-			var  msg = $("#messageText").val();
-			socket.emit('send-server', msg);
-			$('#messageText').val('');
-			
-		};
 
+	//Envia mensagem quando Enter
+	$( "#messageText" ).keypress(function( event ) {
+	  if ( event.which == 13 ) {
+	     sendMessage();
+	  }
+	});
+
+
+	//função para enviar mensagem
+	var sendMessage = function(){
+		var  msg = $("#messageText").val();
+		var chatto = $("#chatto").val();
+		
+		if(msg!="")
+			socket.emit('send-server', {chatto: chatto, msg: msg});
+
+		$('#messageText').val('');
+		
+	};
+
+
+	//Gatilho quando está em chat e é chamado por outro user
+	socket.on('new-message', function(data){
+		
+		var chatto = $("#chatto").val();
+
+		var userCall = "<li class='text-success' title='"+ data.user.name +" says:\n"+ data.msg +"' id='"+ data.user.email +"'>";
+		userCall += "<a href='/chat/"+data.user.email+"/"+data.room+"'>";
+		userCall += "<img src='http://lorempixel.com/30/40/people' class='img-thumbnail'/>";
+		userCall += "</a></li>";
+
+		if(chatto != data.user.email){
+			if($("#list_chatting").html().indexOf(data.user.email) <= 0)
+				$("#list_chatting").html( $("#list_chatting").html() + userCall  );
+			else
+				document.getElementById(data.user.email).title += '\n' + data.msg
+
+		}
+		
+
+	});
+
+	$('#messageText').focus();
 
 
 </script>
