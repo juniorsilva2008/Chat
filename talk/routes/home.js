@@ -83,6 +83,25 @@ router.get('/about', function(req, res) {
   	res.render("home/about", { title: 'About us', session: req.session.login});
 });
 
+//Privacy
+router.get('/privacy', function(req, res) {
+  	res.render("home/privacy", { title: 'Privacy', session: req.session.login});
+});
+
+//Terms
+router.get('/terms', function(req, res) {
+  	res.render("home/terms", { title: 'Terms', session: req.session.login});
+});
+
+//Perfil
+router.get('/profile', function(req, res) {
+  	res.render("home/profile", { title: 'Profile', session: req.session.login});
+});
+
+
+
+
+
 
 module.exports = router;
 

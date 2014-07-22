@@ -12,7 +12,7 @@ module.exports = function(io) {
 		console.log('Socket Conetado')
 		var qtdOnline=0;
 
-
+		//Emite um ready para infomar a nova conexão
 		client.emit('ready')
 
 
@@ -64,9 +64,14 @@ module.exports = function(io) {
 			client.broadcast.emit('notify-offline', {email: session.login.email, qtdOnline: qtdOnline} );
 			console.log('Socket Desconetado')
 
-			//Este comando dá pau quando vou listar os user online
-			//se pá tem que disconectar mais alguma cosa
-			//client.leave();
+		    var rooms = io.sockets.adapter.rooms;
+			if (rooms) {
+			    for (var room in rooms) {
+			    client.leave(room);
+			    }
+			}
+
+
 		});
 
 
@@ -95,7 +100,8 @@ module.exports = function(io) {
 		if (sids) {
 		    for (var id in sids) {
 		    	//Se tiver client.leave no disconnect, dá pau
-		        res.push(io.sockets.adapter.nsp.connected[id].handshake.session);
+		    	if(io.sockets.adapter.nsp.connected[id])
+		        	res.push(io.sockets.adapter.nsp.connected[id].handshake.session);
 
 		    }
 		}
@@ -107,8 +113,9 @@ module.exports = function(io) {
 		var sids = io.sockets.adapter.sids;
 		if (sids) {
 		    for (var id in sids) {
-		    	if(io.sockets.adapter.nsp.connected[id].handshake.session.login.email==email)
-		    		return id;
+		    	if(io.sockets.adapter.nsp.connected[id])
+		    		if(io.sockets.adapter.nsp.connected[id].handshake.session.login.email==email)
+		    			return id;
 		    }
 		}
 

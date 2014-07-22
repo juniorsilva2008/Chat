@@ -9,32 +9,31 @@
 			var notify = document.getElementById(id);
 			if(notify!=null){
 				notify.textContent = data.msg 
-				notify.className += data.class;
+				notify.className = data.class;
 				notify.title = data.msgServer;
 				notify.href= "/chat/" + data.email + "/" + data.room;
 			}
 		};
 		
 		socket.on('notify-online', function(data){
-			//alert(data.email);
 			$("#count-online").html(data.qtdOnline);
-			notify({email: data.email, room:null, msg: 'On', class: ' btn-success'});
+			notify({email: data.email, room:null, msg: 'On', class: 'btn btn-success'});
 
 		});
 
 		socket.on('notify-offline', function(data){
 			$("#count-online").html(data.qtdOnline);
-			notify({email: data.email, room:null, msg: 'Off', class: ' btn-default'});
+			notify({email: data.email, room:null, msg: 'Off', class: 'btn btn-default'});
 		});
 
 
 		socket.on('notify-offline', function(data){
-			notify({email: data.email, room:null, msg: 'Off', class: ' btn-default'});
+			notify({email: data.email, room:null, msg: 'Off', class: 'btn btn-default'});
 		});
+
 
 		socket.on('new-message', function(data){
-			//alert('dasd');
-			notify({email: data.user.email, room:data.room, msg: 'Chatting', msgServer:data.msg, class: ' btn-success'});
+			notify({email: data.user.email, room:data.room, msg: 'Chatting', msgServer:data.msg, class: 'btn btn-success'});
 		});
 
 

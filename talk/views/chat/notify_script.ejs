@@ -44,7 +44,7 @@
 	var sendMessage = function(){
 		var  msg = $("#messageText").val();
 		var chatto = $("#chatto").val();
-		
+
 		if(msg!="")
 			socket.emit('send-server', {chatto: chatto, msg: msg});
 
@@ -72,6 +72,10 @@
 		}
 		
 
+	});
+
+	socket.on('notify-online', function(data){
+		$("#count-online").html(data.qtdOnline);
 	});
 
 	$('#messageText').focus();
