@@ -112,7 +112,7 @@ load('sockets')
     .into(io);
 
 
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 3000);
 
 server.listen(app.get('port'), function(){
     console.log("Panic no ar: "  + server.address().port);
